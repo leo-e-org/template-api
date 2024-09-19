@@ -1,0 +1,85 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.6'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.it'
+version = '0.0.1'
+
+bootJar {
+    launchScript()
+    archiveFileName = "app.jar"
+}
+
+jar {
+    enabled = false
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    configureEach {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+ext {
+    set('log4j2.version', "2.23.1")
+    set('snakeyaml.version', "2.2")
+    set('springBootVersion', "3.2.6")
+    set('springCloudVersion', "2023.0.3")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String commonsCollectionsVersion = '4.4'
+    String commonsLangVersion = '3.17.0'
+    String commonsTextVersion = '1.12.0'
+    String ecsLoggingVersion = '1.6.0'
+    // String jdbcVersion = '11.2.1.jre17'
+    String lombokVersion = '1.18.34'
+    String springBootAdminVersion = '3.2.3'
+    String springdocVersion = '1.8.0'
+
+    implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-cache:$springBootVersion"
+    // implementation "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-validation:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-webflux:$springBootVersion"
+
+    implementation "org.apache.commons:commons-collections4:$commonsCollectionsVersion"
+    implementation "org.apache.commons:commons-lang3:$commonsLangVersion"
+    implementation "org.apache.commons:commons-text:$commonsTextVersion"
+
+    implementation "io.micrometer:micrometer-registry-prometheus"
+    implementation "de.codecentric:spring-boot-admin-starter-client:$springBootAdminVersion"
+    implementation "org.springdoc:springdoc-openapi-webflux-ui:$springdocVersion"
+
+    implementation "co.elastic.logging:log4j2-ecs-layout:$ecsLoggingVersion"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    // implementation "com.microsoft.sqlserver:mssql-jdbc:$jdbcVersion"
+
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+    useJUnitPlatform()
+}
