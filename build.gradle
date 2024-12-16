@@ -45,7 +45,7 @@ repositories {
 dependencies {
     String commonsCollectionsVersion = '4.4'
     String commonsLangVersion = '3.17.0'
-    String commonsTextVersion = '1.12.0'
+    String commonsTextVersion = '1.13.0'
     String ecsLoggingVersion = '1.6.0'
     // String jdbcVersion = '11.2.1.jre17'
     String lombokVersion = '1.18.34'
