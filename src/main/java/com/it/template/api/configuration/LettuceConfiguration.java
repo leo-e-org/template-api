@@ -2,23 +2,22 @@ package com.it.template.api.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class LettuceConfiguration {
 
     @Bean
-    RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
-        RedisTemplate<String, String> template = new RedisTemplate<>();
-        template.setConnectionFactory(factory);
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setHashKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-        template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
-        template.afterPropertiesSet();
-        return template;
+    ReactiveRedisTemplate<String, String> reactiveRedisTemplate(ReactiveRedisConnectionFactory factory) {
+        StringRedisSerializer stringSerializer = new StringRedisSerializer();
+
+        RedisSerializationContext.RedisSerializationContextBuilder<String, String> builder =
+                RedisSerializationContext.newSerializationContext(stringSerializer);
+
+        RedisSerializationContext<String, String> context = builder.value(stringSerializer).hashValue(stringSerializer).build();
+        return new ReactiveRedisTemplate<>(factory, context);
     }
 }
