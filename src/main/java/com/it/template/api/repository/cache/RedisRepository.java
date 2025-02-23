@@ -1,27 +1,27 @@
 package com.it.template.api.repository.cache;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Repository
 @RequiredArgsConstructor
 public class RedisRepository {
 
-    private final RedisTemplate<String, String> redisTemplate;
+    private final ReactiveRedisTemplate<String, String> reactiveRedisTemplate;
 
     @Value("${app.config.cache.custom-key-ttl:3600}")
     private Long keyTimeout;
 
-    public String getValue(String key) {
-        return StringUtils.defaultString(redisTemplate.opsForValue().get(key));
+    public Mono<String> getValue(String key) {
+        return reactiveRedisTemplate.opsForValue().get(key).defaultIfEmpty("");
     }
 
-    public void setValue(String key, String value) {
-        redisTemplate.opsForValue().set(key, value, keyTimeout, TimeUnit.SECONDS);
+    public Mono<Boolean> setValue(String key, String value) {
+        return reactiveRedisTemplate.opsForValue().set(key, value, Duration.ofSeconds(keyTimeout));
     }
 }

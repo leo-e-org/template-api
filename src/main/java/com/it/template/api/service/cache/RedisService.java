@@ -4,6 +4,7 @@ import com.it.template.api.repository.cache.RedisRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Log4j2
 @Service
@@ -12,11 +13,11 @@ public class RedisService {
 
     private final RedisRepository redisRepository;
 
-    public String getValue(String key) {
+    public Mono<String> getValue(String key) {
         return redisRepository.getValue(key);
     }
 
-    public void setValue(String key, String value) {
-        redisRepository.setValue(key, value);
+    public Mono<Boolean> setValue(String key, String value) {
+        return redisRepository.setValue(key, value);
     }
 }

@@ -6,14 +6,13 @@ import com.it.template.api.configuration.component.SecurityAuthenticationManager
 import com.it.template.api.configuration.handler.AccessDeniedHandler;
 import com.it.template.api.evaluator.ApiPermissionEvaluator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
-import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -29,12 +28,9 @@ import java.util.List;
 
 @Configuration
 @EnableWebFluxSecurity
-@EnableReactiveMethodSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-
-    @Autowired
-    private ApplicationContext applicationContext;
 
     @Value("${app.config.security.cors.enabled:false}")
     private boolean enableCors;
@@ -51,13 +47,14 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http) {
-        DefaultMethodSecurityExpressionHandler handler = this.applicationContext.getBean(DefaultMethodSecurityExpressionHandler.class);
-        handler.setPermissionEvaluator(apiPermissionEvaluator);
-
         AuthenticationWebFilter filter = new AuthenticationWebFilter(securityAuthenticationManager);
         filter.setServerAuthenticationConverter(securityAuthenticationConverter);
 
         return http
+                .cors(corsSpec -> {
+                    if (enableCors) corsSpec.configurationSource(corsConfigurationSource());
+                    else corsSpec.disable();
+                })
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .logout(ServerHttpSecurity.LogoutSpec::disable)
                 .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
@@ -91,6 +88,13 @@ public class SecurityConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public MethodSecurityExpressionHandler methodSecurityExpressionHandler() {
+        DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
+        expressionHandler.setPermissionEvaluator(apiPermissionEvaluator);
+        return expressionHandler;
     }
 
     protected List<String> getAllowedEndpoints() {
