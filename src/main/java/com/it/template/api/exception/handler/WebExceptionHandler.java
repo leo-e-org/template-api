@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ import java.util.stream.IntStream;
 
 @Log4j2
 @Component
-@Order(-2)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class WebExceptionHandler extends AbstractErrorWebExceptionHandler {
 
     private static final Integer HTTP_4XX_RANGE_START = 400;

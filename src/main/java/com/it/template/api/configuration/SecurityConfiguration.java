@@ -55,7 +55,6 @@ public class SecurityConfiguration {
                     if (enableCors) corsSpec.configurationSource(corsConfigurationSource());
                     else corsSpec.disable();
                 })
-                .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .logout(ServerHttpSecurity.LogoutSpec::disable)
                 .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
