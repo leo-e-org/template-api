@@ -1,7 +1,5 @@
 # Template API
 
----
-
 ### Integrations
 
 * Log Server (Elastic ECS)

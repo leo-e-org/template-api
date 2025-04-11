@@ -1,0 +1,11 @@
+name: SAST scan workflow
+
+on: [ pull_request ]
+
+jobs:
+  codeql:
+    name: CodeQL
+    uses: leo-ely/github-workflows/.github/workflows/codeql-scan.yml@main
+    with:
+      languages: '["java"]'
+    secrets: inherit
