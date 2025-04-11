@@ -23,7 +23,8 @@ public class LegacyClient extends HelperClient {
                 .uri("/AppVersion")
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, response -> statusResponse(response, "API Legacy"))
-                .toEntity(new ParameterizedTypeReference<>(){})
+                .toEntity(new ParameterizedTypeReference<>() {
+                })
                 .mapNotNull(ResponseEntity::getBody)
                 .onErrorMap(ReadTimeoutException.class, e -> errorMap("API Legacy", "getAppVersion"))
                 .onErrorResume(this::errorResume)

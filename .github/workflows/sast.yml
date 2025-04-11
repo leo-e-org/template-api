@@ -6,6 +6,9 @@ jobs:
   codeql:
     name: CodeQL
     uses: leo-ely/github-workflows/.github/workflows/codeql-scan.yml@main
+    permissions:
+      actions: read
+      security-events: write
     with:
       languages: '["java"]'
     secrets: inherit

@@ -2,6 +2,7 @@ package com.it.template.api.service;
 
 import com.it.template.api.configuration.LettuceTestConfiguration;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.commons.util.StringUtils;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {LettuceTestConfiguration.class})
-// @Disabled("Redis Service Test disabled due to GitHub Cloud Runner unable to access Redis")
+@Disabled("Redis Service Test disabled due to GitHub Cloud Runner unable to access Redis")
 public class RedisServiceTest {
 
     @Autowired
