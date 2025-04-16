@@ -13,23 +13,23 @@ import java.util.function.Function;
 
 import static org.springframework.web.reactive.function.server.ServerResponse.*;
 
-public abstract class MainHandler {
+public abstract class BaseHandler {
 
-    Consumer<HttpHeaders> optionHeaders() {
+    protected Consumer<HttpHeaders> optionHeaders() {
         return headers -> {
             headers.set(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Content-Type, Accept");
             headers.set(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET, PUT, POST, DELETE, PATCH, HEAD, OPTIONS");
         };
     }
 
-    Consumer<HttpHeaders> defaultHeaders() {
+    protected Consumer<HttpHeaders> defaultHeaders() {
         return headers -> {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set(HttpHeaders.CONTENT_ENCODING, StandardCharsets.UTF_8.name());
         };
     }
 
-    Function<ServerResponse, Mono<? extends ServerResponse>> mapResponse() {
+    protected Function<ServerResponse, Mono<? extends ServerResponse>> mapResponse() {
         return response -> {
             if (response.statusCode().isError())
                 return Mono.error(new ApiException(HttpStatus.valueOf(response.statusCode().value())));
@@ -38,32 +38,32 @@ public abstract class MainHandler {
         };
     }
 
-    Function<Throwable, Mono<? extends ServerResponse>> mapErrorResume() {
+    protected Function<Throwable, Mono<? extends ServerResponse>> mapErrorResume() {
         return e -> Mono.just(String.format("Error: %s", e.getMessage()))
                 .flatMap(s -> badRequest().contentType(MediaType.TEXT_PLAIN).bodyValue(s));
     }
 
-    Mono<ServerResponse> mapNoContent() {
+    protected Mono<ServerResponse> mapNoContent() {
         return noContent().build();
     }
 
-    Mono<ServerResponse> mapBadRequest() {
+    protected Mono<ServerResponse> mapBadRequest() {
         return badRequest().bodyValue(new ApiException(HttpStatus.BAD_REQUEST));
     }
 
-    Mono<ServerResponse> mapUnauthorized() {
+    protected Mono<ServerResponse> mapUnauthorized() {
         return status(HttpStatus.UNAUTHORIZED).bodyValue(new ApiException(HttpStatus.UNAUTHORIZED));
     }
 
-    Mono<ServerResponse> mapNotFound() {
+    protected Mono<ServerResponse> mapNotFound() {
         return status(HttpStatus.NOT_FOUND).bodyValue(new ApiException(HttpStatus.NOT_FOUND));
     }
 
-    Mono<ServerResponse> mapGone() {
+    protected Mono<ServerResponse> mapGone() {
         return status(HttpStatus.GONE).bodyValue(new ApiException(HttpStatus.GONE));
     }
 
-    Mono<ServerResponse> mapInternalServerError() {
+    protected Mono<ServerResponse> mapInternalServerError() {
         return status(HttpStatus.INTERNAL_SERVER_ERROR).bodyValue(new ApiException(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 }

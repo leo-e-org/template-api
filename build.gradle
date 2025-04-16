@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.4.3'
+    id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -28,8 +28,8 @@ configurations {
 ext {
     set('log4j2.version', "2.24.3")
     set('snakeyaml.version', "2.4")
-    set('springBootVersion', "3.4.3")
-    set('springCloudVersion', "2024.0.0")
+    set('springBootVersion', "3.4.4")
+    set('springCloudVersion', "2024.0.1")
 }
 
 dependencyManagement {
@@ -49,8 +49,8 @@ dependencies {
     String ecsLoggingVersion = '1.6.0'
     // String jdbcVersion = '11.2.1.jre17'
     String lombokVersion = '1.18.38'
-    String springBootAdminVersion = '3.4.3'
-    String springdocVersion = '1.8.0'
+    String springBootAdminVersion = '3.4.5'
+    String springdocVersion = '2.8.6'
 
     implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
     implementation "org.springframework.boot:spring-boot-starter-cache:$springBootVersion"
@@ -67,7 +67,7 @@ dependencies {
 
     implementation "io.micrometer:micrometer-registry-prometheus"
     implementation "de.codecentric:spring-boot-admin-starter-client:$springBootAdminVersion"
-    implementation "org.springdoc:springdoc-openapi-webflux-ui:$springdocVersion"
+    implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:$springdocVersion"
 
     implementation "co.elastic.logging:log4j2-ecs-layout:$ecsLoggingVersion"
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml"

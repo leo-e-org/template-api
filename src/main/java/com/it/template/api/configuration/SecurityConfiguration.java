@@ -97,6 +97,6 @@ public class SecurityConfiguration {
     }
 
     protected List<String> getAllowedEndpoints() {
-        return List.of("/actuator/**", "/configuration/**", "/configuration/ui", "/v3/api-docs/**", "/webjars/**", "/**");
+        return List.of("/actuator/**", "/configuration/**", "/configuration/ui", "/swagger-ui/**", "/v3/api-docs/**", "/webjars/**", "/**");
     }
 }
