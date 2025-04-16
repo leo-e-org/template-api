@@ -18,21 +18,20 @@ management:
       enabled: true
 
 springdoc:
-  swagger-ui:
-    enabled: false
+  packages-to-scan: com.it.template.api
 
 spring:
   application:
     name: "template-api"
 
-  # boot:
-  #   admin:
-  #     client:
-  #       url: http://localhost/springboot_admin
-  #       instance:
-  #         name: "Template API"
-  #         health-url: http://localhost/template-api/actuator/health
-  #         service-url: http://localhost/template-api
+  boot:
+    admin:
+      client:
+        url: http://localhost/springboot_admin
+        instance:
+          name: "Template API"
+          health-url: http://localhost/template-api/actuator/health
+          service-url: http://localhost/template-api
 
   cache:
     type: redis

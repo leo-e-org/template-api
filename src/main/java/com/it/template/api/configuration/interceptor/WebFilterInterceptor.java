@@ -38,6 +38,6 @@ public class WebFilterInterceptor implements WebFilter {
     }
 
     protected List<String> getAllowedEndpoints() {
-        return List.of("actuator", "api-docs", "configuration", "v3", "webjars");
+        return List.of("actuator", "api-docs", "configuration", "swagger-ui", "v3", "webjars");
     }
 }
