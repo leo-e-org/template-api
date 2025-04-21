@@ -22,7 +22,7 @@ springdoc:
 
 spring:
   application:
-    name: "template-api"
+    name: "template-api-java"
 
   cache:
     type: redis
@@ -79,12 +79,12 @@ spring:
       WRITE_DATES_WITH_ZONE_ID: true
 
   webflux:
-    base-path: "/template-api"
+    base-path: "/template-api-java"
 
 app:
   api:
     legacy:
-      url: "http://localhost:8080/template-api"
+      url: "http://localhost:8080/template-api-java"
     request-timeout: 60
 
   config:
