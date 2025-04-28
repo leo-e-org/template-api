@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    String commonsCollectionsVersion = '4.4'
+    String commonsCollectionsVersion = '4.5.0'
     String commonsLangVersion = '3.17.0'
     String commonsTextVersion = '1.13.1'
     String ecsLoggingVersion = '1.7.0'
