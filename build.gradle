@@ -43,14 +43,14 @@ repositories {
 }
 
 dependencies {
-    String commonsCollectionsVersion = '4.4'
+    String commonsCollectionsVersion = '4.5.0'
     String commonsLangVersion = '3.17.0'
     String commonsTextVersion = '1.13.1'
     String ecsLoggingVersion = '1.7.0'
     // String jdbcVersion = '11.2.1.jre17'
     String lombokVersion = '1.18.38'
     String springBootAdminVersion = '3.4.5'
-    String springdocVersion = '2.8.6'
+    String springdocVersion = '2.8.8'
 
     implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
     implementation "org.springframework.boot:spring-boot-starter-cache:$springBootVersion"
