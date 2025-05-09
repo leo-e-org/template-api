@@ -3,8 +3,8 @@ name: Build workflow
 on: [ push ]
 
 jobs:
-  gradle:
-    name: Gradle
+  action:
+    name: Action
     uses: leo-ely/github-workflows/.github/workflows/main-build-k8s-gradle.yml@main
     with:
       image_name: ${{ github.repository }}
