@@ -50,7 +50,7 @@ dependencies {
     // String jdbcVersion = '11.2.1.jre17'
     String lombokVersion = '1.18.38'
     String springBootAdminVersion = '3.4.5'
-    String springdocVersion = '2.8.9'
+    String springdocVersion = '2.8.11'
 
     implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
     implementation "org.springframework.boot:spring-boot-starter-cache:$springBootVersion"
