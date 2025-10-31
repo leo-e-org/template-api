@@ -44,11 +44,11 @@ repositories {
 
 dependencies {
     String commonsCollectionsVersion = '4.5.0'
-    String commonsLangVersion = '3.18.0'
+    String commonsLangVersion = '3.19.0'
     String commonsTextVersion = '1.14.0'
     String ecsLoggingVersion = '1.7.0'
     // String jdbcVersion = '11.2.1.jre17'
-    String lombokVersion = '1.18.40'
+    String lombokVersion = '1.18.42'
     String springBootAdminVersion = '3.4.5'
     String springdocVersion = '2.8.13'
 
