@@ -48,7 +48,7 @@ dependencies {
     String commonsTextVersion = '1.15.0'
     String ecsLoggingVersion = '1.7.0'
     // String jdbcVersion = '11.2.1.jre17'
-    String lombokVersion = '1.18.44'
+    String lombokVersion = '1.18.46'
     String springBootAdminVersion = '3.4.5'
     String springdocVersion = '2.8.13'
 
